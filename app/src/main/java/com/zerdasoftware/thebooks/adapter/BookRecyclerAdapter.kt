@@ -7,6 +7,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.zerdasoftware.thebooks.R
 import com.zerdasoftware.thebooks.model.Books
 import com.zerdasoftware.thebooks.model.ObjectData
+import com.zerdasoftware.thebooks.util.CreatePlaceholder
+import com.zerdasoftware.thebooks.util.fetchImage
 import kotlinx.android.synthetic.main.book_recycler_row.view.*
 
 class BookRecyclerAdapter(val booksList : ArrayList<Books>) : RecyclerView.Adapter<BookRecyclerAdapter.BookViewHolder>() {
@@ -37,6 +39,11 @@ class BookRecyclerAdapter(val booksList : ArrayList<Books>) : RecyclerView.Adapt
                 booksList.get(position).book_favorite = true
                 holder.itemView.imageViewBookFavorite.setImageResource(R.drawable.favorite_button)
             }
+        }
+
+        booksList.get(position).book_image?.let {
+            holder.itemView.imageViewBookImage.fetchImage(
+                it,CreatePlaceholder(holder.itemView.context))
         }
     }
 

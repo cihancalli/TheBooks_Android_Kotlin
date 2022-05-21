@@ -41,6 +41,14 @@ class BookListFragment : Fragment() {
         recyclerViewBookList.layoutManager = LinearLayoutManager(context)
         recyclerViewBookList.adapter = bookRecyclerAdapter
 
+        swipeRefreshLayout.setOnRefreshListener {
+            progressBarLoadingBook.visibility = View.VISIBLE
+            textViewBookErrorMessage.visibility = View.GONE
+            recyclerViewBookList.visibility = View.GONE
+            viewModel.refreshData()
+            swipeRefreshLayout.isRefreshing = false
+        }
+
         observeLiveData()
     }
 
