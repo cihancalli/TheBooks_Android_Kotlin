@@ -1,51 +1,81 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
-    <LinearLayout
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:orientation="horizontal">
+        android:layout_height="200dp">
 
-        <ImageView
-            android:id="@+id/imageViewBookImage"
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardView"
             android:layout_width="0dp"
-            android:src="@drawable/ic_launcher_background"
-            android:layout_height="match_parent"
-            android:layout_margin="3dp"
-            android:layout_weight="2"/>
+            android:layout_height="0dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="10dp"
+            app:cardCornerRadius="30dp"
+            app:cardElevation="5dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="3"
-            android:orientation="vertical"
-            android:gravity="center"
-            android:layout_gravity="center">
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-            <TextView
-                android:id="@+id/textViewBookTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:text="TITLE"/>
-            <TextView
-                android:id="@+id/textViewBookAuthor"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="16sp"
-                android:layout_margin="5dp"
-                android:text="AUTHOR"/>
+                <ImageView
+                    android:id="@+id/imageView_row_book_image"
+                    android:layout_width="160dp"
+                    android:layout_height="0dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/ic_launcher_background" />
 
-            <ImageView
-                android:id="@+id/imageViewBookFavorite"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:src="@drawable/unfavorite_button"
-                android:layout_margin="3dp"/>
+                <ImageView
+                    android:id="@+id/imageView_row_book_favorite"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_marginBottom="5dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:srcCompat="@drawable/unfavorite_button" />
 
-        </LinearLayout>
+                <TextView
+                    android:id="@+id/textView_row_book_title"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginEnd="10dp"
+                    android:gravity="center"
+                    android:text="TITLE"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/imageView_row_book_image"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-    </LinearLayout>
+                <TextView
+                    android:id="@+id/textView_row_book_author"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="10dp"
+                    android:gravity="center"
+                    android:text="AUTHOR"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/imageView_row_book_image"
+                    app:layout_constraintTop_toBottomOf="@+id/textView_row_book_title" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

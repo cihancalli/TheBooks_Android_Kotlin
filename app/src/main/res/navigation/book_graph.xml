@@ -19,5 +19,12 @@
         <action
             android:id="@+id/action_bookDetailFragment_to_bookListFragment"
             app:destination="@id/bookListFragment" />
+        <argument
+            android:name="bookID"
+            app:argType="integer" />
+        <argument
+            android:name="book_favorite"
+            app:argType="boolean"
+            android:defaultValue="false" />
     </fragment>
 </navigation>

@@ -7,6 +7,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.zerdasoftware.thebooks.R
 
+//API üzerindeki linkten resimlerin çekilmesi resimler yüklenen kadar Placeholder gösterilmesi
 fun ImageView.fetchImage(url:String, placeholder: CircularProgressDrawable){
     val options = RequestOptions().placeholder(placeholder).error(R.mipmap.ic_launcher_round)
     Glide.with(context).setDefaultRequestOptions(options).load(url).into(this)

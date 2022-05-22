@@ -17,6 +17,7 @@ import kotlinx.android.synthetic.main.fragment_book_list.*
 
 class BookListFragment : Fragment() {
 
+    //viewModel ve listelerin gösterileceği Adapter tanımlanıyor
     private lateinit var viewModel : BookListViewModel
     private val bookRecyclerAdapter = BookRecyclerAdapter(arrayListOf())
 
@@ -35,24 +36,30 @@ class BookListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        // viewModel initialize ediyoruz
         viewModel = ViewModelProviders.of(this).get(BookListViewModel::class.java)
+        // viewModel içindeki refreshData ile internetten verilerin çekilmesi işlemi başlatılıyor
         viewModel.refreshData()
 
+        //list layout içindeki RecyclerView tanımlanıyoruz ve adapter ile bağlantısını yapıyoruz
         recyclerViewBookList.layoutManager = LinearLayoutManager(context)
         recyclerViewBookList.adapter = bookRecyclerAdapter
 
+        //Kullanıcı ekranı aşağı doğru kaydırınca verilerin yenilenmesini sağlıyoruz
         swipeRefreshLayout.setOnRefreshListener {
             progressBarLoadingBook.visibility = View.VISIBLE
             textViewBookErrorMessage.visibility = View.GONE
             recyclerViewBookList.visibility = View.GONE
-            viewModel.refreshData()
+            viewModel.refreshAPIData()
             swipeRefreshLayout.isRefreshing = false
         }
 
         observeLiveData()
     }
 
+
     fun observeLiveData(){
+        //Çekilen dataların viewModel aracılığıyla layout içerisinde gösterilmesi
         viewModel.Books.observe(viewLifecycleOwner, Observer { books ->
             books?.let {
                 recyclerViewBookList.visibility = View.VISIBLE
@@ -61,6 +68,9 @@ class BookListFragment : Fragment() {
             }
         })
 
+
+
+        //hata durumunda ekranda hata mesajı gösterilmesi
         viewModel.BookErrorMessage.observe(viewLifecycleOwner, Observer {error ->
             error?.let {
                 if (it){
@@ -73,6 +83,7 @@ class BookListFragment : Fragment() {
             }
         })
 
+        //datalar yüklenirken ekranda ProgressBar gösterilmesi
         viewModel.BookLoading.observe(viewLifecycleOwner, Observer { loading ->
             loading?.let {
                 if (it){
