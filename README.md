@@ -3,15 +3,14 @@
 ```sh
 New York Times Books
 ```
-<img src="" />
+<img src="https://github.com/cihancalli/TheBooks_Android_Kotlin/blob/master/app/src/main/res/drawable-v24/the_books_phone.png" />
 
 ## İndirme ve Test Bağlantısı (Android)
 [APK](https://drive.google.com/file/d/10nH9F9AOZeQFZGGIsMXjdQEw1bb3lWdv/view?usp=sharing)
 
 ## Uygulama Görselleri
-<img src="" />
-<img src="" />
-<img src="" />
+<img src="https://github.com/cihancalli/TheBooks_Android_Kotlin/blob/master/app/src/main/res/drawable-v24/the_books_list_page_phone.png" />
+<img src="https://github.com/cihancalli/TheBooks_Android_Kotlin/blob/master/app/src/main/res/drawable-v24/the_books_deatil_page_phone.png" />
 
 ## Uygulama Özellikleri
 * Ana Sayfa
