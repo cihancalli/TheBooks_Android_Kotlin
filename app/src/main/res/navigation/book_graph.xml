@@ -10,7 +10,9 @@
         android:label="BookListFragment" >
         <action
             android:id="@+id/action_bookListFragment_to_bookDetailFragment"
-            app:destination="@id/bookDetailFragment" />
+            app:destination="@id/bookDetailFragment"
+            app:launchSingleTop="false"
+            app:popUpToInclusive="false" />
     </fragment>
     <fragment
         android:id="@+id/bookDetailFragment"

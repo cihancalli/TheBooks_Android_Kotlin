@@ -64,11 +64,8 @@ class BookListFragment : Fragment() {
             books?.let {
                 recyclerViewBookList.visibility = View.VISIBLE
                 bookRecyclerAdapter.BookListUpdate(books)
-
             }
         })
-
-
 
         //hata durumunda ekranda hata mesajı gösterilmesi
         viewModel.BookErrorMessage.observe(viewLifecycleOwner, Observer {error ->
