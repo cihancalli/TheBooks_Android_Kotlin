@@ -58,7 +58,7 @@ class BookListViewModel(application: Application) : BaseViewModel(application) {
         launch {
             val BookList = BookDatabase(getApplication()).bookDAO().getAllBook()
             showBookData(BookList)
-            Toast.makeText(getApplication(),"get Room", Toast.LENGTH_SHORT).show()
+            //Toast.makeText(getApplication(),"get Room", Toast.LENGTH_SHORT).show()
         }
 
     }
@@ -75,7 +75,7 @@ class BookListViewModel(application: Application) : BaseViewModel(application) {
                     override fun onSuccess(t: ObjectData) {
                         //Veri çekme işlemi Başarılı Olursa
                         sQLiteSave(t.results.books)
-                        Toast.makeText(getApplication(),"get API", Toast.LENGTH_SHORT).show()
+                        //Toast.makeText(getApplication(),"get API", Toast.LENGTH_SHORT).show()
                     }
 
                     override fun onError(e: Throwable) {
@@ -102,14 +102,16 @@ class BookListViewModel(application: Application) : BaseViewModel(application) {
     private fun sQLiteSave(bookList:List<Books>){
         launch {
             val dao = BookDatabase(getApplication()).bookDAO()
-
-
+            //Daha önce liste varsa yani veriler çekilip SQLite kayıt edilmişse
             if (dao.getAllBook().size > 0){
                 var oldBookList = dao.getAllBook()
                 println("Liste VAR")
                 showBookData(oldBookList)
-
-            }else{
+                //Burada yeni veriler eski verilerle aynı mı diye kontrol edilir
+                //yeni veriler daha önce kayıtlı değilse inser işlemi yapılır
+            }
+            //Veriler ilk defa çekilecekse
+            else{
                 println("Liste YOK")
                 val uuidList = dao.insertAll(*bookList.toTypedArray())
                 showBookData(bookList)

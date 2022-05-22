@@ -7,9 +7,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.zerdasoftware.thebooks.R
+import com.zerdasoftware.thebooks.databinding.FragmentBookDetailBinding
 import com.zerdasoftware.thebooks.util.CreatePlaceholder
 import com.zerdasoftware.thebooks.util.fetchImage
 import com.zerdasoftware.thebooks.viewmodel.BookDetailViewModel
@@ -19,7 +22,7 @@ class BookDetailFragment : Fragment() {
 
     private lateinit var viewModel : BookDetailViewModel
     private var BookID = 0
-    private var book_favorite = false
+    private lateinit var dataBinding : FragmentBookDetailBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,18 +34,16 @@ class BookDetailFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_book_detail, container, false)
+        dataBinding = DataBindingUtil.inflate(inflater,R.layout.fragment_book_detail,container,false)
+        return dataBinding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
-
+        //Liste sayfasından seçilen kitabın id si gönderilir ve buradan gelen id SQLite içinden çağırılır
         arguments?.let {
             BookID = BookDetailFragmentArgs.fromBundle(it).bookID
-            book_favorite = BookDetailFragmentArgs.fromBundle(it).bookFavorite
-
         }
         viewModel = ViewModelProviders.of(this).get(BookDetailViewModel::class.java)
         viewModel.getRoomData(BookID)
@@ -52,40 +53,38 @@ class BookDetailFragment : Fragment() {
 
     fun observeLiveData(){
         viewModel.BookLiveData.observe(viewLifecycleOwner, Observer { book ->
-            book?.let {bookData ->
-                textView_book_detail_title.text = bookData.title
-                textView_book_detail_author.text = bookData.author
-                textView_book_detail_publisher.text = bookData.publisher
-                textView_book_detail_description.text = bookData.description
-                textView_book_detail_ısbn10.text = bookData.primary_isbn10
-                textView_book_detail_ısbn13.text = bookData.primary_isbn13
+            book?.let {theBook ->
+                dataBinding.bookDetail = theBook
                 button_buy_now.setOnClickListener {
-                    try {
-                        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(bookData.amazon_product_url))
-                        startActivity(intent)
-                    }catch (e:Exception){
+                    //Toast.makeText(this.context,"BUY NOW THE BOOK ON AMAZON",Toast.LENGTH_SHORT).show()
+                    theBook.amazon_product_url?.let { it1 -> buyNowURL(it1) }
+                }
 
+                imageView_book_detail_favorited.setOnClickListener {
+
+                    if (theBook.book_favorite == true){
+                        favoriteImage(false,theBook.uuid)
+                    }else{
+                        favoriteImage(true,theBook.uuid)
                     }
-                }
-                //viewModel.sQLiteUpdate(book_favorite,it.uuid)
-                context?.let {
-                    imageView_book_detail.fetchImage(book.book_image.toString(),CreatePlaceholder(it))
-                }
-                println("BookDetailFragment book_favorite  primary_isbn10 : "+bookData.primary_isbn10)
-
-
-                if (bookData.book_favorite==true){
-                    imageView_book_detail_favorited.setImageResource(R.drawable.favorite_button)
-                    println("BookDetailFragment book_favorite TRUE : "+bookData.uuid)
-
-                    println("Status "+book_favorite)
-                }else{
-                    imageView_book_detail_favorited.setImageResource(R.drawable.unfavorite_button)
-                    println("BookDetailFragment book_favorite FALSE : "+bookData.uuid)
-                    println("Status "+book_favorite)
                 }
             }
         })
     }
 
+    //Satın alma butonuna tıklanınca tarayıcıdan ürün url sine gider
+
+     fun buyNowURL(url:String){
+        try {
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+            startActivity(intent)
+        }catch (e:Exception){
+
+        }
+    }
+
+    fun favoriteImage(value:Boolean,id:Int){
+        viewModel.sQLiteUpdate(value,id)
+        viewModel.getRoomData(id)
+    }
 }

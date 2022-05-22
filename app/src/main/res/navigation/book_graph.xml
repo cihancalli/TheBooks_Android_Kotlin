@@ -22,9 +22,5 @@
         <argument
             android:name="bookID"
             app:argType="integer" />
-        <argument
-            android:name="book_favorite"
-            app:argType="boolean"
-            android:defaultValue="false" />
     </fragment>
 </navigation>

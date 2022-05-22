@@ -24,7 +24,4 @@ interface BookDAO {
 
     @Query("UPDATE Books SET book_favorite=:value WHERE uuid = :bookID")
     suspend fun updateBookFavorite(value:Boolean, bookID: Int)
-
-    @Query("UPDATE Books SET title=:title,author=:author,book_image=:book_image,book_favorite=:book_favorite  WHERE primary_isbn10 = :primary_isbn10")
-    suspend fun updateBook(title:String,author:String,book_image:String,book_favorite:Boolean, primary_isbn10:String)
 }

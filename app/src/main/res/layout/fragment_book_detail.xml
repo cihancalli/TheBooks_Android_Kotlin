@@ -3,6 +3,13 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="bookDetail"
+            type="com.zerdasoftware.thebooks.model.Books" />
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -16,10 +23,11 @@
             android:layout_marginStart="20dp"
             android:layout_marginTop="20dp"
             android:layout_marginEnd="20dp"
+            android:downloadImage="@{bookDetail.book_image}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_launcher_background" />
+            />
 
         <androidx.cardview.widget.CardView
             android:layout_width="0dp"
@@ -45,14 +53,15 @@
                     android:layout_marginTop="20dp"
                     android:layout_marginEnd="5dp"
                     android:gravity="center"
-                    android:text="TITLE"
+                    android:text="@{bookDetail.title}"
                     android:textAlignment="viewStart"
                     android:textColor="@color/black"
                     android:textSize="20sp"
                     android:textStyle="bold"
                     app:layout_constraintEnd_toStartOf="@+id/imageView_book_detail_favorited"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="RtlCompat" />
 
                 <TextView
                     android:id="@+id/textView_book_detail_author"
@@ -62,13 +71,14 @@
                     android:layout_marginTop="10dp"
                     android:layout_marginEnd="30dp"
                     android:gravity="center"
-                    android:text="AUTHOR"
+                    android:text="@{bookDetail.author}"
                     android:textAlignment="viewStart"
                     android:textColor="@color/black"
                     android:textSize="16sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView_book_detail_title" />
+                    app:layout_constraintTop_toBottomOf="@+id/textView_book_detail_title"
+                    tools:ignore="RtlCompat" />
 
                 <ImageView
                     android:id="@+id/imageView_book_detail_favorited"
@@ -76,9 +86,9 @@
                     android:layout_height="40dp"
                     android:layout_marginTop="20dp"
                     android:layout_marginEnd="30dp"
+                    android:favoriteImage="@{bookDetail.book_favorite}"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/unfavorite_button" />
+                    app:layout_constraintTop_toTopOf="parent"/>
 
                 <TextView
                     android:id="@+id/textView_book_detail_description"
@@ -87,7 +97,7 @@
                     android:layout_marginStart="30dp"
                     android:layout_marginTop="20dp"
                     android:layout_marginEnd="30dp"
-                    android:text="DESCRIPTION"
+                    android:text="@{bookDetail.description}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/cardView2" />
@@ -124,7 +134,8 @@
                             app:layout_constraintBottom_toTopOf="@+id/textView6"
                             app:layout_constraintEnd_toStartOf="@+id/textView_book_detail_ısbn10"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:ignore="RtlCompat" />
 
                         <TextView
                             android:id="@+id/textView6"
@@ -140,7 +151,8 @@
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toStartOf="@+id/textView_book_detail_ısbn13"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/textView5" />
+                            app:layout_constraintTop_toBottomOf="@+id/textView5"
+                            tools:ignore="RtlCompat" />
 
                         <TextView
                             android:id="@+id/textView_book_detail_ısbn10"
@@ -149,7 +161,7 @@
                             android:layout_marginTop="5dp"
                             android:layout_marginEnd="10dp"
                             android:gravity="center"
-                            android:text="ISBN 10"
+                            android:text="@{bookDetail.primary_isbn10}"
                             android:textAlignment="center"
                             android:textColor="@color/white"
                             android:textSize="8sp"
@@ -166,7 +178,7 @@
                             android:layout_marginEnd="10dp"
                             android:layout_marginBottom="5dp"
                             android:gravity="center"
-                            android:text="ISBN 13"
+                            android:text="@{bookDetail.primary_isbn13}"
                             android:textAlignment="center"
                             android:textColor="@color/white"
                             android:textSize="8sp"
@@ -220,7 +232,7 @@
                             android:layout_marginEnd="10dp"
                             android:layout_marginBottom="5dp"
                             android:gravity="center"
-                            android:text="Publisher"
+                            android:text="@{bookDetail.publisher}"
                             android:textColor="@color/white"
                             android:textSize="12sp"
                             android:textStyle="bold"
